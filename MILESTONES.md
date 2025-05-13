@@ -5,11 +5,10 @@ This document outlines the detailed steps for implementing the PID controller an
 ## Phase 1: Project Setup & Environment Configuration (Week 1)
 
 ### Milestone 1.1: Environment Setup
-- [ ] Create project folder structure
-- [ ] Set up MATLAB path for required directories
-- [ ] Create initialization script (`setup.m`)
-- [ ] Verify existing dynamics functions (robot_inertia.m, robot_coriolis.m, robot_gravity.m)
-- [ ] Using ik.m create an inverse kinematics function with propper error handling and validations
+- [X] Create project folder structure
+- [X] Set up MATLAB path for required directories
+- [X] Verify existing dynamics functions (robot_inertia.m, robot_coriolis.m, robot_gravity.m)
+- [X] Using ik.m create an inverse kinematics function with propper error handling and validations
 
 ### Milestone 1.2: Plant Model Implementation
 - [ ] Create Simulink model for the manipulator dynamics

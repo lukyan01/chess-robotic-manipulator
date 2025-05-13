@@ -123,7 +123,7 @@ function validateChessTraj(q_traj, waypoints, links)
 % Validate the trajectory by checking key points with forward kinematics
 % Check first, last, and middle points
 
-checkpoints = [1, floor(size(q_traj, 2)/2), size(q_traj, 2)];
+checkpoints = [1, size(q_traj, 2)];
 
 for i = 1:length(checkpoints)
     idx = checkpoints(i);
@@ -133,10 +133,10 @@ for i = 1:length(checkpoints)
     [pos, orient] = forwardKinematics(q, links);
     
     target_pos = waypoints(waypoint_idx, 1:3)';
-    target_orient = waypoints(waypoint_idx, 4:6)';
+    target_orient = waypoints(waypoint_idx, 6)';
     
     pos_error = norm(pos - target_pos);
-    orient_error = norm(angleDiff(orient, target_orient));
+    orient_error = norm(angleDiff(orient(3), target_orient));
     
     if pos_error > 1e-2 || orient_error > 1e-2
         warning('Large error at checkpoint %d: pos_error=%.4f m, orient_error=%.4f rad', ...

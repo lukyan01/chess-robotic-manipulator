@@ -2,24 +2,23 @@ function visualizeConfiguration(joint_vals, link_lengths, square_label)
 % VISUALIZE_FRAMES  Draws the six joint frames of your manipulator and the chessboard
 
 theta_1 = joint_vals(1);
-d_vert  = joint_vals(2);
-d_horiz = joint_vals(3);
+d_2  = joint_vals(2);
+d_3 = joint_vals(3);
 theta_4 = joint_vals(4);
 theta_5 = joint_vals(5);
 theta_6 = joint_vals(6);
 theta_7 = joint_vals(7);
-L_1 = link_lengths(1);
-L_2 = link_lengths(1);
+L_45 = link_lengths(1);
 L_3 = link_lengths(2);
 
 % Base frame
 T0 = eye(4);
 
 T1 = T0 * [rotz(theta_1)                            [0;0;0];                                    0 0 0 1];
-T2 = T1 * [rotz(-pi/2)* rotx(-pi/2)                 [0; 0; d_vert];                             0 0 0 1];
-T3 = T2 * [rotx(pi/2) * rotz(pi/2) * rotx(pi/2)     [0;                0; d_horiz];             0 0 0 1];
-T4 = T3 * [rotz(theta_4)                            [L_1*cos(theta_4); L_1*sin(theta_4); 0];    0 0 0 1];
-T5 = T4 * [rotz(theta_5)                            [L_2*cos(theta_5); L_2*sin(theta_5); 0];    0 0 0 1];
+T2 = T1 * [rotz(-pi/2)* rotx(-pi/2)                 [0; 0; d_2];                             0 0 0 1];
+T3 = T2 * [rotx(pi/2) * rotz(pi/2) * rotx(pi/2)     [0;                0; d_3];             0 0 0 1];
+T4 = T3 * [rotz(theta_4)                            [L_45*cos(theta_4); L_45*sin(theta_4); 0];    0 0 0 1];
+T5 = T4 * [rotz(theta_5)                            [L_45*cos(theta_5); L_45*sin(theta_5); 0];    0 0 0 1];
 T6 = T5 * [rotz(theta_6)                            [L_3*cos(theta_6); L_3*sin(theta_6); 0];    0 0 0 1];
 T7 = T6 * [rotz(pi/2) * rotx(pi/2) * rotz(theta_7)  [0; 0; 0;]; 0 0 0 1];
 
@@ -52,7 +51,7 @@ for i = 1:size(Ts,3)
     p = Ts(1:3,4,i)';
     q = rotm2quat(R);
     if i==1 || i==8
-        plotTransforms(p, q, 'FrameSize', L_1/2);
+        plotTransforms(p, q, 'FrameSize', L_45/2);
         text(p(1),p(2),p(3), sprintf('F%d',i-1), 'FontSize',12, 'FontWeight','bold');
     end
 end

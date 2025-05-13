@@ -2,10 +2,10 @@
 % Initializes all parameters and paths for the robot manipulator simulation
 
 %% Add paths to project folders
-addpath(genpath('../functions'));
-addpath(genpath('../controllers'));
-addpath(genpath('../models'));
-addpath(genpath('../data'));
+addpath(genpath('functions'));
+addpath(genpath('controllers'));
+addpath(genpath('models'));
+addpath(genpath('data'));
 
 %% Robot physical parameters
 % Link dimensions
@@ -73,7 +73,7 @@ params.log_directory = '../data/simulation_results/';
 
 % Create the log directory if it doesn't exist
 if ~exist(params.log_directory, 'dir')
-    mkdir(params.log_directory);
+    mkdir(params.log_directory);L_12
 end
 
 %% Check if dynamics functions exist
@@ -86,7 +86,7 @@ end
 
 %% Display setup confirmation
 fprintf('Setup complete. Robot parameters initialized.\n');
-fprintf('Link lengths: L12 = %.6f m, L3 = %.6f m\n', params.L_12, params.L_3);
+fprintf('Link lengths: L45 = %.6f m, L6 = %.6f m\n', params.L_45, params.L_6);
 fprintf('Sample time: %.4f s\n', params.sample_time);
 
 % Return the parameters to the workspace
