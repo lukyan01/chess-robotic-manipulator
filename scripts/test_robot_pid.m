@@ -204,7 +204,6 @@ for move_idx = 1:2:length(chess_moves)
     qd_traj_target = qd_traj_target';
     qdd_traj_target = qdd_traj_target';
 
-    % Resample trajectory for control simulation (if needed)
     if sample_time ~= dt
         t_control = 0:dt:move_duration;
         q_target_resampled = zeros(length(t_control), 7);

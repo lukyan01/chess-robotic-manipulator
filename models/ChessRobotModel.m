@@ -82,7 +82,6 @@ classdef ChessRobotModel < handle
                 
             catch ME
                 warning('Error computing dynamics: %s', ME.message);
-                % Fallback to simplified dynamics if needed
                 M = eye(7);
                 C = zeros(7);
                 G = zeros(7, 1);

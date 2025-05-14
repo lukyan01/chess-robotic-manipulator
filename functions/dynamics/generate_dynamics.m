@@ -63,11 +63,11 @@ Transf = cat(3, T1, T2, T3, T4, T5, T6, T7);
 %% Link Vector Definitions
 % Link vector definitions in local frame
 r1 = [0; 0; 0];
-r2 = [0; 0; d_2];
+r2 = [0; -d_2; 0];
 r3 = [0; 0; d_3];
-r4 = [L_45*cos(theta_4); L_45*sin(theta_4); 0];
-r5 = [L_45*cos(theta_5); L_45*sin(theta_5); 0];
-r6 = [L_6*cos(theta_6); L_6*sin(theta_6); 0];
+r4 = [L_45; 0; 0];
+r5 = [L_45; 0; 0];
+r6 = [L_6; 0; 0];
 r7 = [0; 0; 0];
 rs = [r1, r2, r3, r4, r5, r6, r7];
 
@@ -81,11 +81,11 @@ lc6 = L_6/2;  % Link 6 - center
 lc7 = 0;      % End effector - negligible
 
 rc1 = [0; 0; 0]; 
-rc2 = [0; 0; lc2]; 
-rc3 = [0; 0; lc3];
-rc4 = [lc4*cos(theta_4); lc4*sin(theta_4); 0];
-rc5 = [lc5*cos(theta_5); lc5*sin(theta_5); 0];
-rc6 = [lc6*cos(theta_6); lc6*sin(theta_6); 0];
+rc2 = [0; lc2; 0]; 
+rc3 = [0; 0; -lc3];
+rc4 = [-lc4*cos(theta_4); -lc4*sin(theta_4); 0];
+rc5 = [-lc5*cos(theta_5); -lc5*sin(theta_5); 0];
+rc6 = [-lc6*cos(theta_6); -lc6*sin(theta_6); 0];
 rc7 = [0; 0; 0];
 rcs = [rc1, rc2, rc3, rc4, rc5, rc6, rc7];
 
@@ -131,13 +131,13 @@ link_masses = [m1, m2, m3, m4, m5, m6, m7];
 % Inertia tensors (simple models for each link)
 % Using parallel axis theorem: I = I_cm + m*d^2
 % For simplicity, using cylindrical approximations
-I1 = zeros(3,3);   % Base - negligible for dynamics
-I2 = diag([0.001, 0.001, m2*(d_2/2)^2]);  % Vertical prismatic joint
-I3 = diag([0.001, 0.001, m3*(d_3/2)^2]);  % Horizontal prismatic joint
-I4 = diag([m4*(L_45/2)^2, m4*(L_45/2)^2, 0.001]);  % Link 4
-I5 = diag([m5*(L_45/2)^2, m5*(L_45/2)^2, 0.001]);  % Link 5
-I6 = diag([m6*(L_6/2)^2, m6*(L_6/2)^2, 0.001]);    % Link 6
-I7 = diag([0.001, 0.001, 0.001]);  % End effector - negligible
+I1 = zeros(3,3);                                    % Base - negligible for dynamics
+I2 = diag([0.001, 0.001, m2*(d_2/2)^2]);            % Vertical prismatic joint
+I3 = diag([0.001, 0.001, m3*(d_3/2)^2]);            % Horizontal prismatic joint
+I4 = diag([m4*(L_45/2)^2, m4*(L_45/2)^2, 0.001]);   % Link 4
+I5 = diag([m5*(L_45/2)^2, m5*(L_45/2)^2, 0.001]);   % Link 5
+I6 = diag([m6*(L_6/2)^2, m6*(L_6/2)^2, 0.001]);     % Link 6
+I7 = diag([0.001, 0.001, 0.001]);                   % End effector - negligible
 
 link_inertias = {I1, I2, I3, I4, I5, I6, I7};
 
@@ -151,11 +151,11 @@ for i = 1:7
              (1/2) * (omega{i+1}.' * link_inertias{i} * omega{i+1});
     
     % Potential Energy: m*g*h (height in base frame)
-    p_i = Transf(1:3, 4, i);        % origin of frame {i} in base
-    rCi_local = rcs(:,i);           % COM offset in local frame {i}
-    Ri_0 = Transf(1:3, 1:3, i);     % Rotation from {i} to {0}
-    pCi = p_i + Ri_0 * rCi_local;   % COM position in base frame
-    PE = PE + link_masses(i) * g * pCi(3);  % PE = m*g*h
+    p_i = Transf(1:3, 4, i);                        % origin of frame {i} in base
+    rCi_local = rcs(:,i);                           % COM offset in local frame {i}
+    Ri_0 = Transf(1:3, 1:3, i);                     % Rotation from {i} to {0}
+    pCi = p_i + Ri_0 * rCi_local;                   % COM position in base frame
+    PE = PE + link_masses(i) * g * pCi(3);          % PE = m*g*h
 end
 
 % Simplify energies

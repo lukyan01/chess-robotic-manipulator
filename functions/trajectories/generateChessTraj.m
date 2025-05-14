@@ -68,7 +68,7 @@ waypoints = [
     end_x,   end_y,   CHESS_PIECE_HEIGHT,               0, 0, 0     % At ending square
 ];
 % Define timing for each segment (fractions of total duration)
-segment_durations = [0.2, 0.5, 0.3] * duration;  % 20% lift, 50% move, 30% place
+segment_durations = [0.15, 0.7, 0.15] * duration;  % 20% lift, 50% move, 30% place
 segment_times = [0, cumsum(segment_durations)];  % Start times for each segment
 
 % Compute IK for each waypoint
